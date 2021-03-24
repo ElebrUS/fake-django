@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="row align-items-center">
+        <h2 class="col">    {{ schema.name }}</h2>
+        <div class="col">
+            <a class="btn-custom danger float-right" href="{% url "delete" schema.id %}">Delete</a>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <a class="btn btn-success m-1 float-left" href="{% url "data-set" object.id %}">List Data</a>
+        <a class="btn btn-primary m-1 float-left" href="{% url "column-create" object.id %}">Add new</a>
+        <table class="table text-white bg-dark rounded">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Order</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for column in object.column.all|dictsort:"order"%}
+                    <tr>
+                        <th scope="row">{{column.name}}</th>
+                        <td>{{column.order}}</td>
+                        <td>
+                            <a class="btn btn-outline-primary" href="{% url "detail" column.id %}">View</a>
+                            <a class="btn btn-outline-danger" href="{% url "delete_col" column.id %}">Del</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

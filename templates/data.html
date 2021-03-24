@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="row align-items-center">
+        <h2 class="col">    {{ schema.name }}</h2>
+        <div class="col">
+            <a class="btn btn-status btn-outline-success float-right p-2" href="{% url "data-add" schema.id %}">Add New</a>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <table class="table text-white bg-dark rounded">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Created</th>
+                    <th scope="col">Count Data</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in data_list %}
+                    <tr>
+                        <th scope="row">{{data.id}}</th>
+                        <td>{{data.date}}</td>
+                        <td>{{data.count}}</td>
+                        <td>
+                            {% if data.status %}
+                                <a class="btn btn-status btn-outline-success" id={{data.pk}}  href="{{ data.url }}" download>Ready</a>
+                            {% else %}
+                                <a class="btn btn-status disabled btn-outline-warning" id={{ data.pk }}  href="#" download>In progress</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

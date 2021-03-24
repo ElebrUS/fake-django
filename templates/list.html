@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+        <div class="row align-items-center">
+        <h1 class="col">List Schemas</h1>
+        <div class="col">
+            <a class="btn-custom white float-right" href="{% url "create" %}">New Schema</a>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <table class="table text-white bg-dark rounded">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Date Create</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for schema in schema_list%}
+                    <tr>
+                        <th scope="row">{{schema.id}}</th>
+                        <td>{{schema}}</td>
+                        <td>{{schema.date}}</td>
+                        <td>
+                            <a class="btn btn-outline-primary" href="{% url "detail" schema.id %}">View</a>
+                            <a class="btn btn-outline-danger" href="{% url "delete" schema.id %}">Del</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
